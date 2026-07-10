@@ -7,6 +7,17 @@ import './utils/errorSuppression'
 export const metadata: Metadata = {
   title: 'Life in the UK Test',
   description: 'Practice Life in the UK citizenship test questions',
+  // Keep this site out of Google / AI / any search index — only people with the link should find it
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+    },
+  },
   icons: {
     icon: [
       {
