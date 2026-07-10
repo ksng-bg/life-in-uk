@@ -44,7 +44,7 @@ export function QuestionGrid({
                 <button
                   key={actualIndex}
                   onClick={() => onQuestionClick(actualIndex)}
-                  className={`w-8 h-8 text-xs rounded border-2 font-medium transition-all duration-200 ${
+                  className={`w-full aspect-square min-w-0 max-w-[2rem] mx-auto text-xs rounded border-2 font-medium transition-all duration-200 ${
                     getStatusClass(getQuestionStatus(actualIndex))
                   }`}
                 >
