@@ -7,6 +7,13 @@ module.exports = {
   ],
   theme: {
     extend: {
+      // Height-based breakpoints so short laptop screens (e.g. 13" at 768/800px tall)
+      // can compress spacing and fit the question + Next button without scrolling,
+      // while tall desktop monitors keep the roomier default layout.
+      screens: {
+        short: { raw: '(max-height: 860px)' },
+        shorter: { raw: '(max-height: 720px)' },
+      },
       colors: {
         primary: {
           50: '#eff6ff',

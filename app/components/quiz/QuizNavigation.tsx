@@ -32,11 +32,11 @@ export function QuizNavigation({
   mode
 }: QuizNavigationProps) {
   return (
-    <div className="flex flex-col sm:flex-row gap-3 sm:justify-between">
+    <div className="flex flex-col sm:flex-row gap-3 short:gap-2 sm:justify-between mt-2 short:mt-1">
       <button
         onClick={onPrevious}
         disabled={currentQuestionIndex === 0}
-        className="bg-gray-300 text-gray-700 px-4 sm:px-8 py-3 rounded-lg font-medium hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed order-1"
+        className="bg-gray-300 text-gray-700 px-4 sm:px-8 py-3 short:py-2 rounded-lg font-medium hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed order-1"
       >
         Previous
       </button>
@@ -44,7 +44,7 @@ export function QuizNavigation({
       <button 
         onClick={onMarkForReview}
         disabled={!canMarkForReview}
-        className={`px-4 sm:px-8 py-3 rounded-lg font-medium transition-colors order-2 ${
+        className={`px-4 sm:px-8 py-3 short:py-2 rounded-lg font-medium transition-colors order-2 ${
           canMarkForReview
             ? 'bg-warning-500 text-white hover:bg-warning-600'
             : 'bg-gray-300 text-gray-500 cursor-not-allowed'
@@ -58,14 +58,14 @@ export function QuizNavigation({
         isLastQuestion ? (
           <button
             onClick={onFinish}
-            className="bg-success-600 text-white px-4 sm:px-8 py-3 rounded-lg font-medium hover:bg-success-700 order-3"
+            className="bg-success-600 text-white px-4 sm:px-8 py-3 short:py-2 rounded-lg font-medium hover:bg-success-700 order-3"
           >
             Finish {mode === 'test' ? 'Test' : mode === 'individual' ? 'Exam' : 'Practice'}
           </button>
         ) : (
           <button
             onClick={onNext}
-            className="bg-primary-600 text-white px-4 sm:px-8 py-3 rounded-lg font-medium hover:bg-primary-700 order-3"
+            className="bg-primary-600 text-white px-4 sm:px-8 py-3 short:py-2 rounded-lg font-medium hover:bg-primary-700 order-3"
           >
             Next
           </button>
@@ -74,14 +74,14 @@ export function QuizNavigation({
         isLastQuestion && isComplete ? (
           <button
             onClick={onFinish}
-            className="bg-success-600 text-white px-4 sm:px-8 py-3 rounded-lg font-medium hover:bg-success-700 order-3"
+            className="bg-success-600 text-white px-4 sm:px-8 py-3 short:py-2 rounded-lg font-medium hover:bg-success-700 order-3"
           >
             Finish {mode === 'test' ? 'Test' : mode === 'individual' ? 'Exam' : 'Practice'}
           </button>
         ) : (
           <button
             onClick={onCheck}
-            className="bg-primary-600 text-white px-4 sm:px-8 py-3 rounded-lg font-medium hover:bg-primary-700 order-3"
+            className="bg-primary-600 text-white px-4 sm:px-8 py-3 short:py-2 rounded-lg font-medium hover:bg-primary-700 order-3"
           >
             Check
           </button>

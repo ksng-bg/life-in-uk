@@ -25,24 +25,24 @@ export function QuestionDisplay({
 
   return (
     <div>
-      <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-6 leading-relaxed">
+      <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-6 leading-relaxed short:text-lg short:mb-3 short:leading-snug">
         {question.question}
       </h2>
 
       {question.isMultipleChoice && (
-        <p className="text-sm text-blue-600 font-medium mb-4">
+        <p className="text-sm text-blue-600 font-medium mb-4 short:mb-2">
           📝 Select all correct answers (multiple choice question)
         </p>
       )}
 
       {/* Answer Options */}
-      <div className="space-y-3 mb-8">
+      <div className="space-y-3 mb-8 short:space-y-2 short:mb-4">
         {question.answers.map(answer => {
           const answerId = parseInt(answer.answerNumber?.toString() || '0')
           const isSelected = selectedAnswers.includes(answerId)
           const isCorrect = answer.isCorrect && (answer.isCorrect.toLowerCase() === 'true' || answer.isCorrect.toLowerCase() === 'yes')
           
-          let buttonClass = "w-full p-4 text-left rounded-lg border-2 transition-all duration-200 "
+          let buttonClass = "w-full p-4 short:p-2.5 text-left rounded-lg border-2 transition-all duration-200 "
           
           if (showResult) {
             if (isSelected && isCorrect) {

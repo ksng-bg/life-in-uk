@@ -81,10 +81,10 @@ export function QuizHeader({
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+    <div className="bg-white rounded-lg shadow-sm p-6 mb-6 short:p-4 short:mb-3 shorter:p-3">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 short:mb-0">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 short:text-xl short:mb-1">
             {getTitle()}
           </h1>
           <p className="text-gray-600">
@@ -121,7 +121,10 @@ export function QuizHeader({
         </div>
       </div>
 
-      {getModeInfo()}
+      {/* The mode info banner is hidden on short screens to save vertical space */}
+      <div className="short:hidden">
+        {getModeInfo()}
+      </div>
     </div>
   )
 }

@@ -105,7 +105,7 @@ export function QuizContainer({ config, onBackToSelection }: QuizContainerProps)
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 short:py-4 shorter:py-2">
         <div className="max-w-4xl mx-auto">
           
           {/* Header */}
@@ -121,7 +121,7 @@ export function QuizContainer({ config, onBackToSelection }: QuizContainerProps)
           />
 
           {/* Question Status Grid */}
-          <div className={`bg-white rounded-lg shadow-sm mb-6 ${config.mode === 'practice' ? 'px-4 py-2.5' : 'p-6'}`}>
+          <div className={`bg-white rounded-lg shadow-sm mb-6 short:mb-3 ${config.mode === 'practice' ? 'px-4 py-2.5' : 'p-6 short:p-4'}`}>
             {config.mode === 'practice' ? (
               /* In practice mode the status grid is collapsible and closed by default (a compact one-line row) */
               <button
@@ -196,11 +196,11 @@ export function QuizContainer({ config, onBackToSelection }: QuizContainerProps)
           </div>
 
           {/* Question Content */}
-          <div className="bg-white rounded-lg shadow-sm p-6 md:p-8">
+          <div className="bg-white rounded-lg shadow-sm p-6 md:p-8 short:p-4 shorter:p-3">
             {/* Two columns on desktop: the question + answers + navigation stay on the left so the
                 Next/Check buttons never move, while the result & explanation appear on the right —
                 no scrolling needed to press Next after checking an answer. */}
-            <div className="grid md:grid-cols-2 gap-6 md:gap-8 md:items-start">
+            <div className="grid md:grid-cols-2 gap-6 md:gap-8 short:gap-4 md:items-start">
               {/* Left column */}
               <div>
                 <QuestionDisplay
