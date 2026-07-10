@@ -178,18 +178,19 @@ export function QuizContainer({ config, onBackToSelection }: QuizContainerProps)
                     </div>
                   </div>
                 )}
-              </div>
-            )}
 
-            {/* Practice finish option — kept visible so it works while the status is collapsed */}
-            {config.mode === 'practice' && getters.getAnsweredCount() > 0 && (
-              <div className="mt-4">
-                <button
-                  onClick={handleFinish}
-                  className="bg-success-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-success-700"
-                >
-                  Finish Practice ({getters.getAnsweredCount()} questions answered)
-                </button>
+                {/* Practice finish option — lives inside the collapsible panel so it never pushes
+                    the question/Next button down while the status is collapsed */}
+                {config.mode === 'practice' && getters.getAnsweredCount() > 0 && (
+                  <div className="mt-4">
+                    <button
+                      onClick={handleFinish}
+                      className="bg-success-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-success-700"
+                    >
+                      Finish Practice ({getters.getAnsweredCount()} questions answered)
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </div>
