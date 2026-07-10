@@ -116,9 +116,10 @@ export function QuestionResult({ question, showResult, result }: QuestionResultP
   if (!showResult || !result) {
     // Placeholder keeps the right-hand column from collapsing before an answer is checked
     return (
-      <div className="hidden md:flex h-full min-h-[8rem] items-center justify-center rounded-lg border-2 border-dashed border-gray-200 p-4 text-center text-sm text-gray-400">
-        Select an answer and press <span className="mx-1 font-medium">Check</span> to see the
-        result and explanation here.
+      <div className="hidden md:flex h-full min-h-[8rem] items-center justify-center rounded-lg border-2 border-dashed border-gray-200 p-6 text-center">
+        <p className="max-w-xs text-sm leading-relaxed text-gray-400">
+          Select an answer and press <span className="font-medium">Check</span> to see the result and explanation here.
+        </p>
       </div>
     )
   }
