@@ -34,10 +34,36 @@ function Section({
       <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-base">
         {icon}
       </div>
-      <div className="min-w-0">
+      <div className="min-w-0 flex-1">
         <h4 className="text-sm font-semibold text-gray-900">{title}</h4>
         <div className="mt-0.5 text-sm leading-relaxed text-gray-600">{children}</div>
       </div>
+    </div>
+  )
+}
+
+// A "what's new" item: title, one-line description, and a demo GIF of the feature in action.
+function FeatureDemo({
+  title,
+  src,
+  alt,
+  children,
+}: {
+  title: string
+  src: string
+  alt: string
+  children: React.ReactNode
+}) {
+  return (
+    <div>
+      <h5 className="text-sm font-semibold text-gray-900">{title}</h5>
+      <p className="mt-0.5 text-sm leading-relaxed text-gray-600">{children}</p>
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        className="mt-2 w-full rounded-lg border border-gray-200 shadow-sm"
+      />
     </div>
   )
 }
@@ -88,7 +114,7 @@ export default function AboutFlap() {
           aria-label="About this page"
         >
           <div
-            className="aboutflap-panel relative w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl"
+            className="aboutflap-panel relative w-full max-w-[720px] overflow-hidden rounded-2xl bg-white shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
@@ -115,7 +141,7 @@ export default function AboutFlap() {
             </div>
 
             {/* Body */}
-            <div className="max-h-[55vh] space-y-4 overflow-y-auto px-5 py-5">
+            <div className="max-h-[68vh] space-y-5 overflow-y-auto px-5 py-5">
               <Section icon="📖" title="What this is">
                 A free, ad-free practice tool covering the official Life in the UK test — full
                 24-question mock exams, individual test sets, and instant feedback. No sign-up,
@@ -123,8 +149,16 @@ export default function AboutFlap() {
               </Section>
 
               <Section icon="👋" title="Who&rsquo;s behind it">
-                Built and maintained by <span className="font-medium text-gray-800">KS is Building</span> —
-                a small solo project. <span className="font-medium text-gray-800">KS</span> is my
+                Built and maintained by{' '}
+                <a
+                  href={COFFEE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-primary-600 underline decoration-primary-300 underline-offset-2 hover:text-primary-700"
+                >
+                  KS is Building
+                </a>{' '}
+                — a small solo project. <span className="font-medium text-gray-800">KS</span> is my
                 initials (the GitHub name reads &ldquo;KSIS Building&rdquo;, but it&rsquo;s just
                 &ldquo;KS is Building&rdquo;). Questions are drawn from the official Life in the UK
                 handbook material.
@@ -144,21 +178,45 @@ export default function AboutFlap() {
                 on top of their groundwork.
               </Section>
 
-              <Section icon="✨" title="What&rsquo;s new in this version">
-                <ul className="mt-1 list-disc space-y-1 pl-4">
-                  <li>
-                    <span className="font-medium text-gray-800">Collapsible Question Status</span> —
-                    the jump-to grid is tucked away by default, so you just answer and hit{' '}
-                    <span className="font-medium text-gray-800">Next</span> without scrolling.
-                    Over hundreds of questions that saves a huge amount of scrolling and time
-                    versus the original layout.
-                  </li>
-                  <li><span className="font-medium text-gray-800">Focus Mode</span> — drill every question mentioning a word or year.</li>
-                  <li>Individual test sets alongside the full mock exam.</li>
-                  <li>Instant answer feedback while you practise.</li>
-                  <li>Layout that adapts to short laptops and phones.</li>
-                </ul>
-              </Section>
+              <div className="flex gap-3">
+                <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-base">
+                  ✨
+                </div>
+                <div className="min-w-0 flex-1">
+                  <h4 className="text-sm font-semibold text-gray-900">What&rsquo;s new in this version</h4>
+                  <div className="mt-3 space-y-5">
+                    <FeatureDemo
+                      title="Collapsible Question Status"
+                      src="/demos/collapsible-status.gif"
+                      alt="The Question Status grid is collapsed by default so the question and Next button stay in view; tap to expand it, jump to any question, then collapse again."
+                    >
+                      The jump-to grid is tucked away by default, so you just answer and hit{' '}
+                      <span className="font-medium text-gray-800">Next</span> — no scrolling. Over
+                      hundreds of questions that saves a lot of time versus the original layout; tap
+                      it open whenever you want to jump around.
+                    </FeatureDemo>
+
+                    <FeatureDemo
+                      title="Focus Mode"
+                      src="/demos/focus-mode.gif"
+                      alt="Typing the keyword Parliament and starting Focus Mode builds a mini-test from every question mentioning it, with the keyword highlighted in the questions, answers and explanations."
+                    >
+                      Type <span className="font-medium text-gray-800">one word or a year</span> and
+                      get a mini-test built from every question that mentions it — with the keyword
+                      highlighted throughout. Great for drilling a single topic.
+                    </FeatureDemo>
+
+                    <FeatureDemo
+                      title="Adapts to your screen"
+                      src="/demos/responsive.gif"
+                      alt="The quiz layout reflowing from a two-column desktop view down to a single column as the screen narrows to phone width."
+                    >
+                      The layout reflows from a two-column desktop view down to a single column on
+                      phones and short laptops — the question and controls always stay in view.
+                    </FeatureDemo>
+                  </div>
+                </div>
+              </div>
 
               <Section icon="🎯" title="Why I built it">
                 Citizenship prep is stressful and often costs money. I wanted a clean, honest,
