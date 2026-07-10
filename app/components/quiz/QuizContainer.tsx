@@ -6,7 +6,7 @@ import { QuizConfig } from './types'
 import { useQuizData } from './useQuizData'
 import { QuizHeader } from './QuizHeader'
 import { QuestionGrid, QuestionStatusLegend } from './QuestionGrid'
-import { QuestionDisplay } from './QuestionDisplay'
+import { QuestionDisplay, QuestionResult } from './QuestionDisplay'
 import { QuizNavigation } from './QuizNavigation'
 
 interface QuizContainerProps {
@@ -196,30 +196,47 @@ export function QuizContainer({ config, onBackToSelection }: QuizContainerProps)
 
           {/* Question Content */}
           <div className="bg-white rounded-lg shadow-sm p-6 md:p-8">
-            <QuestionDisplay
-              question={currentQuestion}
-              selectedAnswers={selectedAnswers}
-              showResult={state.showResult}
-              result={result}
-              onAnswerSelect={actions.selectAnswer}
-            />
+            {/* Two columns on desktop: the question + answers + navigation stay on the left so the
+                Next/Check buttons never move, while the result & explanation appear on the right —
+                no scrolling needed to press Next after checking an answer. */}
+            <div className="grid md:grid-cols-2 gap-6 md:gap-8 md:items-start">
+              {/* Left column */}
+              <div>
+                <QuestionDisplay
+                  question={currentQuestion}
+                  selectedAnswers={selectedAnswers}
+                  showResult={state.showResult}
+                  result={result}
+                  onAnswerSelect={actions.selectAnswer}
+                />
 
-            {/* Navigation */}
-            <QuizNavigation
-              currentQuestionIndex={state.currentQuestionIndex}
-              totalQuestions={state.questions.length}
-              showResult={state.showResult}
-              canMarkForReview={getters.canMarkForReview()}
-              isCurrentQuestionReviewed={getters.isCurrentQuestionReviewed()}
-              isLastQuestion={state.currentQuestionIndex === state.questions.length - 1}
-              isComplete={getters.isComplete()}
-              onPrevious={actions.previousQuestion}
-              onNext={actions.nextQuestion}
-              onCheck={actions.checkAnswer}
-              onMarkForReview={actions.markForReview}
-              onFinish={handleFinish}
-              mode={config.mode}
-            />
+                {/* Navigation */}
+                <QuizNavigation
+                  currentQuestionIndex={state.currentQuestionIndex}
+                  totalQuestions={state.questions.length}
+                  showResult={state.showResult}
+                  canMarkForReview={getters.canMarkForReview()}
+                  isCurrentQuestionReviewed={getters.isCurrentQuestionReviewed()}
+                  isLastQuestion={state.currentQuestionIndex === state.questions.length - 1}
+                  isComplete={getters.isComplete()}
+                  onPrevious={actions.previousQuestion}
+                  onNext={actions.nextQuestion}
+                  onCheck={actions.checkAnswer}
+                  onMarkForReview={actions.markForReview}
+                  onFinish={handleFinish}
+                  mode={config.mode}
+                />
+              </div>
+
+              {/* Right column: result / explanation */}
+              <div className="md:sticky md:top-6">
+                <QuestionResult
+                  question={currentQuestion}
+                  showResult={state.showResult}
+                  result={result}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

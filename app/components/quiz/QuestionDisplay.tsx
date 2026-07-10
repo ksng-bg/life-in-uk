@@ -96,58 +96,81 @@ export function QuestionDisplay({
           )
         })}
       </div>
+    </div>
+  )
+}
 
-      {/* Result Display */}
-      {showResult && result && (
-        <div className={`mb-6 p-4 rounded-lg ${
-          result.isCorrect ? 'bg-success-100 border border-success-300' : 'bg-danger-100 border border-danger-300'
-        }`}>
-          <div className="flex items-center mb-3">
-            {result.isCorrect ? (
-              <svg className="w-6 h-6 text-success-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-            ) : (
-              <svg className="w-6 h-6 text-danger-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-              </svg>
-            )}
-            <span className={`font-semibold ${result.isCorrect ? 'text-success-800' : 'text-danger-800'}`}>
-              {result.isCorrect ? 'Correct!' : 'Incorrect'}
-            </span>
-          </div>
-          
-          <div className="text-gray-700 mb-2">
-            <p className="font-medium">The correct answer{result.correctAnswers.length > 1 ? 's are' : ' is'}:</p>
+interface QuestionResultProps {
+  question: QuestionData
+  showResult: boolean
+  result?: {
+    isCorrect: boolean
+    correctAnswers: Answer[]
+    selectedAnswerNumbers: number[]
+  } | null
+}
+
+// The correct/incorrect verdict + explanation. Rendered in its own (right-hand) column so
+// that checking an answer does not push the navigation buttons down and force a scroll.
+export function QuestionResult({ question, showResult, result }: QuestionResultProps) {
+  if (!showResult || !result) {
+    // Placeholder keeps the right-hand column from collapsing before an answer is checked
+    return (
+      <div className="hidden md:flex h-full min-h-[8rem] items-center justify-center rounded-lg border-2 border-dashed border-gray-200 p-4 text-center text-sm text-gray-400">
+        Select an answer and press <span className="mx-1 font-medium">Check</span> to see the
+        result and explanation here.
+      </div>
+    )
+  }
+
+  return (
+    <div className={`p-4 rounded-lg ${
+      result.isCorrect ? 'bg-success-100 border border-success-300' : 'bg-danger-100 border border-danger-300'
+    }`}>
+      <div className="flex items-center mb-3">
+        {result.isCorrect ? (
+          <svg className="w-6 h-6 text-success-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+          </svg>
+        ) : (
+          <svg className="w-6 h-6 text-danger-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+          </svg>
+        )}
+        <span className={`font-semibold ${result.isCorrect ? 'text-success-800' : 'text-danger-800'}`}>
+          {result.isCorrect ? 'Correct!' : 'Incorrect'}
+        </span>
+      </div>
+
+      <div className="text-gray-700 mb-2">
+        <p className="font-medium">The correct answer{result.correctAnswers.length > 1 ? 's are' : ' is'}:</p>
+        <ul className="list-disc list-inside ml-4">
+          {result.correctAnswers.map(answer => (
+            <li key={answer.answerNumber} className="text-green-700">
+              <strong>{answer.answer}</strong>
+            </li>
+          ))}
+        </ul>
+        {!result.isCorrect && (
+          <div className="mt-2">
+            <p className="font-medium text-red-700">Your answer{result.selectedAnswerNumbers.length > 1 ? 's were' : ' was'}:</p>
             <ul className="list-disc list-inside ml-4">
-              {result.correctAnswers.map(answer => (
-                <li key={answer.answerNumber} className="text-green-700">
-                  <strong>{answer.answer}</strong>
-                </li>
-              ))}
+              {result.selectedAnswerNumbers.map(answerId => {
+                const userAnswer = question.answers.find(a => parseInt(a.answerNumber?.toString() || '0') === answerId)
+                return userAnswer ? (
+                  <li key={answerId} className="text-red-700">
+                    <strong>{userAnswer.answer}</strong>
+                  </li>
+                ) : null
+              })}
             </ul>
-            {!result.isCorrect && (
-              <div className="mt-2">
-                <p className="font-medium text-red-700">Your answer{result.selectedAnswerNumbers.length > 1 ? 's were' : ' was'}:</p>
-                <ul className="list-disc list-inside ml-4">
-                  {result.selectedAnswerNumbers.map(answerId => {
-                    const userAnswer = question.answers.find(a => parseInt(a.answerNumber?.toString() || '0') === answerId)
-                    return userAnswer ? (
-                      <li key={answerId} className="text-red-700">
-                        <strong>{userAnswer.answer}</strong>
-                      </li>
-                    ) : null
-                  })}
-                </ul>
-              </div>
-            )}
           </div>
-          
-          {question.reference && (
-            <div className="text-sm text-gray-700">
-              <strong>Explanation:</strong> {question.reference}
-            </div>
-          )}
+        )}
+      </div>
+
+      {question.reference && (
+        <div className="text-sm text-gray-700">
+          <strong>Explanation:</strong> {question.reference}
         </div>
       )}
     </div>
