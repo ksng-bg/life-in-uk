@@ -120,43 +120,35 @@ export function QuizContainer({ config, onBackToSelection }: QuizContainerProps)
             onBackToSelection={onBackToSelection}
           />
 
-          {/* Question Status Grid */}
-          <div className={`bg-white rounded-lg shadow-sm mb-6 short:mb-3 ${config.mode === 'practice' ? 'px-4 py-2.5' : 'p-6 short:p-4'}`}>
-            {config.mode === 'practice' ? (
-              /* In practice mode the status grid is collapsible and closed by default (a compact one-line row) */
-              <button
-                type="button"
-                onClick={() => setIsStatusOpen(open => !open)}
-                aria-expanded={isStatusOpen}
-                className="flex w-full items-center justify-between text-sm text-gray-600 focus:outline-none"
-              >
-                <span className="flex items-center gap-2 font-medium">
-                  <svg
-                    className={`w-4 h-4 transition-transform duration-200 ${isStatusOpen ? 'rotate-90' : ''}`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                  Question Status
-                </span>
-                <span>
-                  {getters.getAnsweredCount()} of {state.questions.length} answered
-                </span>
-              </button>
-            ) : (
-              <div className="flex justify-between text-sm text-gray-600 mb-4">
-                <span>Question Status</span>
-                <span>
-                  {getters.getAnsweredCount()} of {state.questions.length} answered
-                </span>
-              </div>
-            )}
+          {/* Question Status Grid — collapsible and closed by default in every mode
+              (practice, test and each individual exam set), so it stays a compact one-line
+              row and never pushes the question/Next button below the fold. */}
+          <div className="bg-white rounded-lg shadow-sm mb-6 short:mb-3 px-4 py-2.5">
+            <button
+              type="button"
+              onClick={() => setIsStatusOpen(open => !open)}
+              aria-expanded={isStatusOpen}
+              className="flex w-full items-center justify-between text-sm text-gray-600 focus:outline-none"
+            >
+              <span className="flex items-center gap-2 font-medium">
+                <svg
+                  className={`w-4 h-4 transition-transform duration-200 ${isStatusOpen ? 'rotate-90' : ''}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+                Question Status
+              </span>
+              <span>
+                {getters.getAnsweredCount()} of {state.questions.length} answered
+              </span>
+            </button>
 
-            {/* Collapsible content — always shown outside practice mode */}
-            {(config.mode !== 'practice' || isStatusOpen) && (
-              <div className={config.mode === 'practice' ? 'mt-4' : ''}>
+            {/* Collapsible content */}
+            {isStatusOpen && (
+              <div className="mt-4">
                 <QuestionGrid
                   questions={state.questions}
                   currentQuestionIndex={state.currentQuestionIndex}
