@@ -89,21 +89,20 @@ export default function AboutFlap() {
 
   return (
     <>
-      {/* The flap — a slim pill floating at the bottom centre */}
-      {!open && (
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          aria-label="About this page"
-          className="fixed bottom-4 left-1/2 z-40 -translate-x-1/2 flex items-center gap-2 rounded-full border border-gray-200/80 bg-white/90 px-4 py-2 text-sm font-medium text-gray-700 shadow-lg backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:text-gray-900 active:translate-y-0"
-        >
-          <span
-            className="inline-block h-2 w-2 rounded-full bg-primary-500"
-            aria-hidden="true"
-          />
-          About this page
-        </button>
-      )}
+      {/* Inline trigger — sits under the hero subtitle */}
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-label="About this site and what's new"
+        aria-haspopup="dialog"
+        className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-primary-300 hover:text-gray-900 hover:shadow-md active:translate-y-0"
+      >
+        <span
+          className="inline-block h-2 w-2 rounded-full bg-primary-500"
+          aria-hidden="true"
+        />
+        About this site &amp; what&rsquo;s new
+      </button>
 
       {/* Expanded panel */}
       {open && (

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import AboutFlap from './components/AboutFlap'
 
 export default function Home() {
   return (
@@ -7,11 +8,15 @@ export default function Home() {
         <h1 className="text-5xl font-bold text-gray-900 mb-6">
           Life in the UK Test
         </h1>
-        
-        <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
-          Practice for your British citizenship test with authentic questions. 
+
+        <p className="text-xl text-gray-600 mb-6 max-w-2xl mx-auto">
+          Practice for your British citizenship test with authentic questions.
           Test your knowledge of UK history, culture, and government.
         </p>
+
+        <div className="mb-12">
+          <AboutFlap />
+        </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           <div className="bg-white p-8 rounded-xl shadow-md">
