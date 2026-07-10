@@ -4,11 +4,17 @@ import { useEffect, useState } from 'react'
 
 const FEEDBACK_EMAIL = 'ksisbuilding@gmail.com'
 
+// Buy Me a Coffee — confirm this handle points at your real page.
+const COFFEE_URL = 'https://buymeacoffee.com/ksisbuilding'
+
+// The project this fork is built on. Credit stays visible in the About panel.
+const ORIGINAL_REPO_URL = 'https://github.com/domicch/life-in-uk'
+
 // Pre-filled email so a tap opens the user's mail app ready to send.
 const mailtoHref = () => {
   const subject = encodeURIComponent('Feedback — Life in the UK Test')
   const body = encodeURIComponent(
-    "Hi KSIS Building team,\n\nHere's my feedback on the Life in the UK Test site:\n\n" +
+    "Hi KS,\n\nHere's my feedback on the Life in the UK Test site:\n\n" +
       '\n\n— Sent from the About panel'
   )
   return `mailto:${FEEDBACK_EMAIL}?subject=${subject}&body=${body}`
@@ -116,13 +122,37 @@ export default function AboutFlap() {
                 no paywall.
               </Section>
 
-              <Section icon="🏗️" title="Where it comes from">
-                Built and maintained by <span className="font-medium text-gray-800">KSIS Building</span>,
-                with questions drawn from the official Life in the UK handbook material.
+              <Section icon="👋" title="Who&rsquo;s behind it">
+                Built and maintained by <span className="font-medium text-gray-800">KS is Building</span> —
+                a small solo project. <span className="font-medium text-gray-800">KS</span> is my
+                initials (the GitHub name reads &ldquo;KSIS Building&rdquo;, but it&rsquo;s just
+                &ldquo;KS is Building&rdquo;). Questions are drawn from the official Life in the UK
+                handbook material.
               </Section>
 
-              <Section icon="✨" title="What&rsquo;s improved recently">
+              <Section icon="🌱" title="Built on open source">
+                This site started as a fork of the excellent{' '}
+                <a
+                  href={ORIGINAL_REPO_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-primary-600 underline decoration-primary-300 underline-offset-2 hover:text-primary-700"
+                >
+                  domicch/life-in-uk
+                </a>{' '}
+                project. Huge thanks to the original author — I&rsquo;ve rebuilt the practice flow
+                on top of their groundwork.
+              </Section>
+
+              <Section icon="✨" title="What&rsquo;s new in this version">
                 <ul className="mt-1 list-disc space-y-1 pl-4">
+                  <li>
+                    <span className="font-medium text-gray-800">Collapsible Question Status</span> —
+                    the jump-to grid is tucked away by default, so you just answer and hit{' '}
+                    <span className="font-medium text-gray-800">Next</span> without scrolling.
+                    Over hundreds of questions that saves a huge amount of scrolling and time
+                    versus the original layout.
+                  </li>
                   <li><span className="font-medium text-gray-800">Focus Mode</span> — drill every question mentioning a word or year.</li>
                   <li>Individual test sets alongside the full mock exam.</li>
                   <li>Instant answer feedback while you practise.</li>
@@ -130,16 +160,42 @@ export default function AboutFlap() {
                 </ul>
               </Section>
 
-              <Section icon="🎯" title="Why we built it">
-                Citizenship prep is stressful and often costs money. We wanted a clean, honest,
+              <Section icon="🎯" title="Why I built it">
+                Citizenship prep is stressful and often costs money. I wanted a clean, honest,
                 genuinely free way to practise — no ads, no data selling.
               </Section>
+
+              {/* Buy Me a Coffee — invitation, never an obligation */}
+              <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
+                <div className="flex gap-3">
+                  <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-base">
+                    ☕
+                  </div>
+                  <div className="min-w-0">
+                    <h4 className="text-sm font-semibold text-gray-900">Enjoying it?</h4>
+                    <p className="mt-0.5 text-sm leading-relaxed text-gray-600">
+                      This stays free, always. If it helped your prep and you feel like saying
+                      thanks, you&rsquo;re welcome to buy me a coffee — completely optional, and
+                      absolutely no pressure either way.
+                    </p>
+                    <a
+                      href={COFFEE_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-3 inline-flex items-center gap-2 rounded-lg bg-amber-400 px-3.5 py-2 text-sm font-semibold text-amber-950 shadow-sm transition-colors hover:bg-amber-300"
+                    >
+                      <span aria-hidden="true">☕</span>
+                      Buy me a coffee
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Feedback footer */}
             <div className="border-t border-gray-100 bg-gray-50 px-5 py-4">
               <p className="text-sm text-gray-600">
-                Spotted something, or have an idea? We&rsquo;d love to hear it.
+                Spotted something, or have an idea? I&rsquo;d love to hear it.
               </p>
               <a
                 href={mailtoHref()}

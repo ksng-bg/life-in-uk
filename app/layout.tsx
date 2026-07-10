@@ -22,11 +22,12 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><rect width="16" height="16" fill="%23012169"/><rect x="0" y="6" width="16" height="4" fill="white"/><rect x="6" y="0" width="4" height="16" fill="white"/><rect x="0" y="7" width="16" height="2" fill="%23C8102E"/><rect x="7" y="0" width="2" height="16" fill="%23C8102E"/></svg>',
+        url: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><defs><linearGradient id="k" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="%232f6bff"/><stop offset="1" stop-color="%231e40af"/></linearGradient></defs><rect width="120" height="120" rx="28" fill="url(%23k)"/><text x="60" y="64" text-anchor="middle" dominant-baseline="central" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="56" letter-spacing="-3" fill="white">KS</text></svg>',
         type: 'image/svg+xml',
       },
     ],
-    shortcut: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><rect width="16" height="16" fill="%23012169"/><rect x="0" y="6" width="16" height="4" fill="white"/><rect x="6" y="0" width="4" height="16" fill="white"/><rect x="0" y="7" width="16" height="2" fill="%23C8102E"/><rect x="7" y="0" width="2" height="16" fill="%23C8102E"/></svg>',
+    shortcut: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><defs><linearGradient id="k" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="%232f6bff"/><stop offset="1" stop-color="%231e40af"/></linearGradient></defs><rect width="120" height="120" rx="28" fill="url(%23k)"/><text x="60" y="64" text-anchor="middle" dominant-baseline="central" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="56" letter-spacing="-3" fill="white">KS</text></svg>',
+    apple: '/icon.svg',
   },
   other: {
     'cache-control': 'no-cache, no-store, must-revalidate',

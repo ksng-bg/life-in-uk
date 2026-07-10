@@ -1,0 +1,224 @@
+<title>KS is Building — Icon Concepts</title>
+<style>
+  :root {
+    --bg: #f6f8fc;
+    --surface: #ffffff;
+    --border: #e2e8f2;
+    --ink: #0f1b33;
+    --ink-soft: #4a5670;
+    --ink-faint: #7c869e;
+    --brand: #2563eb;
+    --brand-deep: #1e40af;
+    --amber: #f59e0b;
+    --chip: #eef2fb;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0a0f1c;
+      --surface: #111a2e;
+      --border: #223252;
+      --ink: #eef2fb;
+      --ink-soft: #aeb9d4;
+      --ink-faint: #78859f;
+      --brand: #5b8cff;
+      --brand-deep: #3b6ae0;
+      --chip: #172441;
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #f6f8fc; --surface: #ffffff; --border: #e2e8f2;
+    --ink: #0f1b33; --ink-soft: #4a5670; --ink-faint: #7c869e;
+    --brand: #2563eb; --brand-deep: #1e40af; --chip: #eef2fb;
+  }
+  :root[data-theme="dark"] {
+    --bg: #0a0f1c; --surface: #111a2e; --border: #223252;
+    --ink: #eef2fb; --ink-soft: #aeb9d4; --ink-faint: #78859f;
+    --brand: #5b8cff; --brand-deep: #3b6ae0; --chip: #172441;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 1020px; margin: 0 auto; padding: 56px 24px 96px; }
+
+  header { margin-bottom: 8px; }
+  .eyebrow {
+    font-size: 12px; font-weight: 600; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--brand);
+    margin: 0 0 12px;
+  }
+  h1 { font-size: clamp(28px, 5vw, 40px); font-weight: 800; letter-spacing: -.02em; margin: 0; text-wrap: balance; }
+  .lede { color: var(--ink-soft); font-size: 16px; max-width: 62ch; margin: 14px 0 0; }
+
+  .grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px; margin-top: 40px;
+  }
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 18px; padding: 22px; display: flex; flex-direction: column; gap: 16px;
+  }
+  .card-head { display: flex; align-items: baseline; gap: 10px; }
+  .tag {
+    font-size: 11px; font-weight: 700; color: var(--brand);
+    background: var(--chip); border-radius: 6px; padding: 3px 8px; letter-spacing: .03em;
+  }
+  .name { font-size: 17px; font-weight: 700; letter-spacing: -.01em; }
+  .stage {
+    display: flex; align-items: center; gap: 20px;
+    background: var(--chip); border-radius: 14px; padding: 18px;
+  }
+  .big { width: 92px; height: 92px; flex-shrink: 0; }
+  .faviconrow { display: flex; align-items: center; gap: 12px; }
+  .fav { width: 32px; height: 32px; }
+  .fav.s16 { width: 16px; height: 16px; }
+  .favlabel { font-size: 11px; color: var(--ink-faint); font-weight: 500; }
+  .why { font-size: 14px; color: var(--ink-soft); margin: 0; }
+  .why b { color: var(--ink); font-weight: 600; }
+  .scale { font-size: 12px; color: var(--ink-faint); display: flex; align-items: center; gap: 6px; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; }
+  .dot.good { background: #22c55e; } .dot.mid { background: var(--amber); }
+
+  .note {
+    margin-top: 44px; padding: 20px 22px; border: 1px dashed var(--border);
+    border-radius: 14px; background: var(--surface); font-size: 14px; color: var(--ink-soft);
+  }
+  .note b { color: var(--ink); }
+  svg { display: block; }
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Brand mark · pick a direction</p>
+    <h1>KS is Building — icon concepts</h1>
+    <p class="lede">Five directions for the app icon &amp; favicon, tuned to the site's existing blue. Each is shown large and at real favicon sizes (32px / 16px) so you can judge how it holds up small. Tell me the number you like and I'll refine it and wire it in as the site icon.</p>
+  </header>
+
+  <div class="grid">
+
+    <!-- 1: Monogram tile -->
+    <div class="card">
+      <div class="card-head"><span class="tag">01</span><span class="name">Monogram Tile</span></div>
+      <div class="stage">
+        <svg class="big" viewBox="0 0 120 120" aria-label="Concept 1">
+          <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#2f6bff"/><stop offset="1" stop-color="#1e40af"/></linearGradient></defs>
+          <rect x="6" y="6" width="108" height="108" rx="26" fill="url(#g1)"/>
+          <text x="60" y="60" text-anchor="middle" dominant-baseline="central"
+            font-family="'Arial Black','Helvetica Neue',system-ui" font-weight="900"
+            font-size="52" letter-spacing="-3" fill="#fff">KS</text>
+        </svg>
+        <div class="faviconrow">
+          <svg class="fav" viewBox="0 0 120 120"><rect x="6" y="6" width="108" height="108" rx="26" fill="url(#g1)"/><text x="60" y="62" text-anchor="middle" dominant-baseline="central" font-family="'Arial Black',system-ui" font-weight="900" font-size="54" letter-spacing="-3" fill="#fff">KS</text></svg>
+          <svg class="fav s16" viewBox="0 0 120 120"><rect x="6" y="6" width="108" height="108" rx="26" fill="url(#g1)"/><text x="60" y="62" text-anchor="middle" dominant-baseline="central" font-family="'Arial Black',system-ui" font-weight="900" font-size="54" letter-spacing="-3" fill="#fff">KS</text></svg>
+          <span class="favlabel">32 / 16px</span>
+        </div>
+      </div>
+      <p class="why"><b>Clean, safe, professional.</b> Just the initials on a rounded tile in the app's blue. Reads instantly at any size and looks native as a browser-tab icon.</p>
+      <span class="scale"><span class="dot good"></span>Excellent at favicon size</span>
+    </div>
+
+    <!-- 2: Building blocks -->
+    <div class="card">
+      <div class="card-head"><span class="tag">02</span><span class="name">Building Blocks</span></div>
+      <div class="stage">
+        <svg class="big" viewBox="0 0 120 120" aria-label="Concept 2">
+          <rect x="6" y="6" width="108" height="108" rx="26" fill="var(--surface)" stroke="var(--border)"/>
+          <!-- stacked blocks forming a rising structure -->
+          <rect x="26" y="72" width="22" height="22" rx="4" fill="#1e40af"/>
+          <rect x="50" y="72" width="22" height="22" rx="4" fill="#2f6bff"/>
+          <rect x="74" y="72" width="22" height="22" rx="4" fill="#1e40af"/>
+          <rect x="38" y="48" width="22" height="22" rx="4" fill="#2f6bff"/>
+          <rect x="62" y="48" width="22" height="22" rx="4" fill="#5b8cff"/>
+          <rect x="50" y="24" width="22" height="22" rx="4" fill="#f59e0b"/>
+          <text x="61" y="36" text-anchor="middle" dominant-baseline="central" font-family="'Arial Black',system-ui" font-weight="900" font-size="14" fill="#fff">KS</text>
+        </svg>
+        <div class="faviconrow">
+          <svg class="fav" viewBox="0 0 120 120"><rect x="26" y="72" width="22" height="22" rx="4" fill="#1e40af"/><rect x="50" y="72" width="22" height="22" rx="4" fill="#2f6bff"/><rect x="74" y="72" width="22" height="22" rx="4" fill="#1e40af"/><rect x="38" y="48" width="22" height="22" rx="4" fill="#2f6bff"/><rect x="62" y="48" width="22" height="22" rx="4" fill="#5b8cff"/><rect x="50" y="24" width="22" height="22" rx="4" fill="#f59e0b"/></svg>
+          <svg class="fav s16" viewBox="0 0 120 120"><rect x="26" y="72" width="22" height="22" rx="4" fill="#1e40af"/><rect x="50" y="72" width="22" height="22" rx="4" fill="#2f6bff"/><rect x="74" y="72" width="22" height="22" rx="4" fill="#1e40af"/><rect x="38" y="48" width="22" height="22" rx="4" fill="#2f6bff"/><rect x="62" y="48" width="22" height="22" rx="4" fill="#5b8cff"/><rect x="50" y="24" width="22" height="22" rx="4" fill="#f59e0b"/></svg>
+          <span class="favlabel">32 / 16px</span>
+        </div>
+      </div>
+      <p class="why"><b>Literal "building".</b> Blocks stacking into a structure — the amber capstone carries the KS. Playful and memorable; the metaphor matches the name directly.</p>
+      <span class="scale"><span class="dot mid"></span>KS text drops at 16px — mark still reads</span>
+    </div>
+
+    <!-- 3: Blueprint -->
+    <div class="card">
+      <div class="card-head"><span class="tag">03</span><span class="name">Blueprint</span></div>
+      <div class="stage">
+        <svg class="big" viewBox="0 0 120 120" aria-label="Concept 3">
+          <defs><linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b3a8f"/><stop offset="1" stop-color="#0f245e"/></linearGradient></defs>
+          <rect x="6" y="6" width="108" height="108" rx="26" fill="url(#g3)"/>
+          <g stroke="#5b8cff" stroke-opacity="0.28" stroke-width="1">
+            <line x1="6" y1="34" x2="114" y2="34"/><line x1="6" y1="60" x2="114" y2="60"/><line x1="6" y1="86" x2="114" y2="86"/>
+            <line x1="34" y1="6" x2="34" y2="114"/><line x1="60" y1="6" x2="60" y2="114"/><line x1="86" y1="6" x2="86" y2="114"/>
+          </g>
+          <text x="60" y="62" text-anchor="middle" dominant-baseline="central" font-family="'Arial Black',system-ui" font-weight="900" font-size="48" letter-spacing="-3" fill="#dbe8ff">KS</text>
+          <circle cx="34" cy="34" r="3" fill="#9dc0ff"/><circle cx="86" cy="86" r="3" fill="#9dc0ff"/>
+        </svg>
+        <div class="faviconrow">
+          <svg class="fav" viewBox="0 0 120 120"><rect x="6" y="6" width="108" height="108" rx="26" fill="url(#g3)"/><g stroke="#5b8cff" stroke-opacity="0.28" stroke-width="2"><line x1="6" y1="42" x2="114" y2="42"/><line x1="6" y1="78" x2="114" y2="78"/><line x1="42" y1="6" x2="42" y2="114"/><line x1="78" y1="6" x2="78" y2="114"/></g><text x="60" y="64" text-anchor="middle" dominant-baseline="central" font-family="'Arial Black',system-ui" font-weight="900" font-size="52" letter-spacing="-3" fill="#dbe8ff">KS</text></svg>
+          <svg class="fav s16" viewBox="0 0 120 120"><rect x="6" y="6" width="108" height="108" rx="26" fill="url(#g3)"/><text x="60" y="64" text-anchor="middle" dominant-baseline="central" font-family="'Arial Black',system-ui" font-weight="900" font-size="56" letter-spacing="-3" fill="#dbe8ff">KS</text></svg>
+          <span class="favlabel">32 / 16px</span>
+        </div>
+      </div>
+      <p class="why"><b>"Building" as a maker.</b> KS drawn on a drafting grid — a builder's blueprint. Signals craft and a work-in-progress studio; the grid fades gracefully at small sizes.</p>
+      <span class="scale"><span class="dot good"></span>Reads well at favicon size</span>
+    </div>
+
+    <!-- 4: Foundation / progress -->
+    <div class="card">
+      <div class="card-head"><span class="tag">04</span><span class="name">Foundation</span></div>
+      <div class="stage">
+        <svg class="big" viewBox="0 0 120 120" aria-label="Concept 4">
+          <rect x="6" y="6" width="108" height="108" rx="26" fill="var(--surface)" stroke="var(--border)"/>
+          <!-- rising steps = progress/building up -->
+          <rect x="24" y="74" width="18" height="16" rx="3" fill="#bcd2ff"/>
+          <rect x="46" y="62" width="18" height="28" rx="3" fill="#5b8cff"/>
+          <rect x="68" y="46" width="18" height="44" rx="3" fill="#2563eb"/>
+          <rect x="24" y="94" width="72" height="6" rx="3" fill="#1e40af"/>
+          <text x="60" y="30" text-anchor="middle" dominant-baseline="central" font-family="'Arial Black',system-ui" font-weight="900" font-size="26" letter-spacing="-2" fill="var(--ink)">KS</text>
+        </svg>
+        <div class="faviconrow">
+          <svg class="fav" viewBox="0 0 120 120"><rect x="6" y="6" width="108" height="108" rx="26" fill="#eef2fb"/><rect x="22" y="70" width="20" height="20" rx="3" fill="#bcd2ff"/><rect x="46" y="54" width="20" height="36" rx="3" fill="#5b8cff"/><rect x="70" y="36" width="20" height="54" rx="3" fill="#2563eb"/><rect x="22" y="94" width="68" height="7" rx="3" fill="#1e40af"/></svg>
+          <svg class="fav s16" viewBox="0 0 120 120"><rect x="6" y="6" width="108" height="108" rx="26" fill="#eef2fb"/><rect x="22" y="70" width="20" height="20" rx="3" fill="#bcd2ff"/><rect x="46" y="54" width="20" height="36" rx="3" fill="#5b8cff"/><rect x="70" y="36" width="20" height="54" rx="3" fill="#2563eb"/><rect x="22" y="94" width="68" height="7" rx="3" fill="#1e40af"/></svg>
+          <span class="favlabel">32 / 16px</span>
+        </div>
+      </div>
+      <p class="why"><b>Progress you can feel.</b> Rising steps on a foundation line — "building up" your knowledge test by test. Ties the brand to the learner's journey, not just construction.</p>
+      <span class="scale"><span class="dot good"></span>Bars read clearly; KS optional small</span>
+    </div>
+
+    <!-- 5: Wordmark lockup -->
+    <div class="card">
+      <div class="card-head"><span class="tag">05</span><span class="name">Wordmark Lockup</span></div>
+      <div class="stage">
+        <svg class="big" viewBox="0 0 120 120" aria-label="Concept 5">
+          <defs><linearGradient id="g5" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f6bff"/><stop offset="1" stop-color="#1e40af"/></linearGradient></defs>
+          <rect x="26" y="18" width="68" height="52" rx="14" fill="url(#g5)"/>
+          <text x="60" y="45" text-anchor="middle" dominant-baseline="central" font-family="'Arial Black',system-ui" font-weight="900" font-size="30" letter-spacing="-2" fill="#fff">KS</text>
+          <text x="60" y="86" text-anchor="middle" font-family="Inter,system-ui" font-weight="800" font-size="11" letter-spacing="0.5" fill="var(--ink)">is Building</text>
+        </svg>
+        <div class="faviconrow">
+          <svg class="fav" viewBox="0 0 120 120"><rect x="6" y="6" width="108" height="108" rx="26" fill="url(#g5)"/><text x="60" y="62" text-anchor="middle" dominant-baseline="central" font-family="'Arial Black',system-ui" font-weight="900" font-size="54" letter-spacing="-3" fill="#fff">KS</text></svg>
+          <svg class="fav s16" viewBox="0 0 120 120"><rect x="6" y="6" width="108" height="108" rx="26" fill="url(#g5)"/><text x="60" y="62" text-anchor="middle" dominant-baseline="central" font-family="'Arial Black',system-ui" font-weight="900" font-size="54" letter-spacing="-3" fill="#fff">KS</text></svg>
+          <span class="favlabel">favicon falls back to tile</span>
+        </div>
+      </div>
+      <p class="why"><b>The full name, made a logo.</b> "KS" badge stacked over "is Building" — for headers, the About panel, and the GitHub profile. The favicon reduces to the plain tile (concept 01).</p>
+      <span class="scale"><span class="dot mid"></span>Best as a header logo, not a favicon</span>
+    </div>
+
+  </div>
+
+  <div class="note">
+    <b>Fonts note:</b> these previews use a heavy system font (Arial Black) as a stand-in so they render anywhere. Once you pick a direction I'll set the real letterforms, export clean SVG + PNG + <b>.ico</b> favicon, and wire it into the site's <b>&lt;head&gt;</b> and web manifest. My pick for the favicon is <b>01</b> (bulletproof small) with <b>05</b> as the header logo — but the call is yours.
+  </div>
+</div>
