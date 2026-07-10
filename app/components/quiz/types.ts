@@ -22,11 +22,12 @@ export interface QuestionData extends Question {
 
 export type QuestionStatus = 'unanswered' | 'correct' | 'incorrect' | 'review' | 'current'
 
-export type QuizMode = 'practice' | 'test' | 'individual'
+export type QuizMode = 'practice' | 'test' | 'individual' | 'focus'
 
 export interface QuizConfig {
   mode: QuizMode
   examNumber?: number
+  keyword?: string // Focus Mode: only include questions mentioning this word/year
   timeLimit?: number // in seconds
   shuffleQuestions?: boolean
   shuffleAnswers?: boolean

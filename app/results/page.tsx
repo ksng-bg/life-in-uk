@@ -43,6 +43,8 @@ export default function ResultsPage() {
           storageKey = `individual-results-${resultsId}`
         } else if (mode === 'practice') {
           storageKey = `practice-results-${resultsId}`
+        } else if (mode === 'focus') {
+          storageKey = `focus-results-${resultsId}`
         } else {
           storageKey = `test-results-${resultsId}`
         }
@@ -76,6 +78,8 @@ export default function ResultsPage() {
       return `Exam ${examNumber} Results ${originalMode === 'practice' ? '(Practice)' : '(Test)'}`
     } else if (mode === 'practice') {
       return 'Practice Results'
+    } else if (mode === 'focus') {
+      return 'Focus Results'
     } else {
       return 'Test Results'
     }
@@ -199,10 +203,10 @@ export default function ResultsPage() {
               )}
               
               <Link
-                href={mode === 'individual' ? '/individual' : '/test'}
+                href={mode === 'individual' ? '/individual' : mode === 'focus' ? '/focus' : mode === 'practice' ? '/practice' : '/test'}
                 className="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors"
               >
-                {mode === 'individual' ? 'Take Another Individual Test' : 'Take Another Test'}
+                {mode === 'individual' ? 'Take Another Individual Test' : mode === 'focus' ? 'Focus on Another Keyword' : mode === 'practice' ? 'Practice Again' : 'Take Another Test'}
               </Link>
               
               <Link

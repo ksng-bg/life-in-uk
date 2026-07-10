@@ -18,8 +18,11 @@ export function QuizContainer({ config, onBackToSelection }: QuizContainerProps)
   const router = useRouter()
   const { state, actions, getters } = useQuizData(config)
 
-  // In practice mode the Question Status section is collapsible and closed by default
+  // The Question Status section is collapsible and closed by default
   const [isStatusOpen, setIsStatusOpen] = useState(false)
+
+  // Focus mode behaves like practice: no timer, instant feedback, a mid-quiz finish option
+  const isPracticeLike = config.mode === 'practice' || config.mode === 'focus'
 
   const handleFinish = () => {
     const finishResult = actions.finishQuiz()
@@ -84,14 +87,16 @@ export function QuizContainer({ config, onBackToSelection }: QuizContainerProps)
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <p className="text-xl text-red-600 mb-4">
-            No questions found{config.examNumber ? ` for exam ${config.examNumber}` : ''}
+            {config.keyword
+              ? `No questions mention “${config.keyword}”. Try another word or a year.`
+              : `No questions found${config.examNumber ? ` for exam ${config.examNumber}` : ''}`}
           </p>
           {onBackToSelection && (
-            <button 
+            <button
               onClick={onBackToSelection}
               className="bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700"
             >
-              Back to Selection
+              {config.keyword ? 'Try another keyword' : 'Back to Selection'}
             </button>
           )}
         </div>
@@ -112,10 +117,11 @@ export function QuizContainer({ config, onBackToSelection }: QuizContainerProps)
           <QuizHeader
             mode={config.mode}
             examNumber={config.examNumber}
+            keyword={config.keyword}
             currentQuestionIndex={state.currentQuestionIndex}
             totalQuestions={state.questions.length}
             timeLeft={state.timeLeft}
-            answeredCount={config.mode === 'practice' ? getters.getAnsweredCount() : undefined}
+            answeredCount={isPracticeLike ? getters.getAnsweredCount() : undefined}
             isCurrentQuestionReviewed={getters.isCurrentQuestionReviewed()}
             onBackToSelection={onBackToSelection}
           />
@@ -171,15 +177,15 @@ export function QuizContainer({ config, onBackToSelection }: QuizContainerProps)
                   </div>
                 )}
 
-                {/* Practice finish option — lives inside the collapsible panel so it never pushes
-                    the question/Next button down while the status is collapsed */}
-                {config.mode === 'practice' && getters.getAnsweredCount() > 0 && (
+                {/* Practice / focus finish option — lives inside the collapsible panel so it never
+                    pushes the question/Next button down while the status is collapsed */}
+                {isPracticeLike && getters.getAnsweredCount() > 0 && (
                   <div className="mt-4">
                     <button
                       onClick={handleFinish}
                       className="bg-success-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-success-700"
                     >
-                      Finish Practice ({getters.getAnsweredCount()} questions answered)
+                      Finish {config.mode === 'focus' ? 'Focus' : 'Practice'} ({getters.getAnsweredCount()} questions answered)
                     </button>
                   </div>
                 )}
@@ -201,6 +207,7 @@ export function QuizContainer({ config, onBackToSelection }: QuizContainerProps)
                   showResult={state.showResult}
                   result={result}
                   onAnswerSelect={actions.selectAnswer}
+                  highlight={config.keyword}
                 />
 
                 {/* Navigation */}
@@ -227,6 +234,7 @@ export function QuizContainer({ config, onBackToSelection }: QuizContainerProps)
                   question={currentQuestion}
                   showResult={state.showResult}
                   result={result}
+                  highlight={config.keyword}
                 />
               </div>
             </div>

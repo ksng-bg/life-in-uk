@@ -1,6 +1,7 @@
 'use client'
 
 import { QuestionData, Answer } from './types'
+import { highlightText } from '../../utils/highlight'
 
 interface QuestionDisplayProps {
   question: QuestionData
@@ -12,6 +13,7 @@ interface QuestionDisplayProps {
     selectedAnswerNumbers: number[]
   } | null
   onAnswerSelect: (answerNumber: number) => void
+  highlight?: string // Focus Mode keyword to emphasise in the text
 }
 
 export function QuestionDisplay({
@@ -19,14 +21,15 @@ export function QuestionDisplay({
   selectedAnswers,
   showResult,
   result,
-  onAnswerSelect
+  onAnswerSelect,
+  highlight
 }: QuestionDisplayProps) {
   if (!question) return null
 
   return (
     <div>
       <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-6 leading-relaxed short:text-lg short:mb-3 short:leading-snug">
-        {question.question}
+        {highlightText(question.question, highlight)}
       </h2>
 
       {question.isMultipleChoice && (
@@ -87,7 +90,7 @@ export function QuestionDisplay({
                     </svg>
                   )}
                 </div>
-                <span className="font-medium">{answer.answer}</span>
+                <span className="font-medium">{highlightText(answer.answer, highlight)}</span>
                 {showResult && !isSelected && isCorrect && (
                   <span className="ml-auto text-success-600 font-semibold">✓ Correct</span>
                 )}
@@ -108,11 +111,12 @@ interface QuestionResultProps {
     correctAnswers: Answer[]
     selectedAnswerNumbers: number[]
   } | null
+  highlight?: string // Focus Mode keyword to emphasise in the explanation
 }
 
 // The correct/incorrect verdict + explanation. Rendered in its own (right-hand) column so
 // that checking an answer does not push the navigation buttons down and force a scroll.
-export function QuestionResult({ question, showResult, result }: QuestionResultProps) {
+export function QuestionResult({ question, showResult, result, highlight }: QuestionResultProps) {
   if (!showResult || !result) {
     // Placeholder keeps the right-hand column from collapsing before an answer is checked
     return (
@@ -148,7 +152,7 @@ export function QuestionResult({ question, showResult, result }: QuestionResultP
         <ul className="list-disc list-inside ml-4">
           {result.correctAnswers.map(answer => (
             <li key={answer.answerNumber} className="text-green-700">
-              <strong>{answer.answer}</strong>
+              <strong>{highlightText(answer.answer, highlight)}</strong>
             </li>
           ))}
         </ul>
@@ -171,7 +175,7 @@ export function QuestionResult({ question, showResult, result }: QuestionResultP
 
       {question.reference && (
         <div className="text-sm text-gray-700">
-          <strong>Explanation:</strong> {question.reference}
+          <strong>Explanation:</strong> {highlightText(question.reference, highlight)}
         </div>
       )}
     </div>

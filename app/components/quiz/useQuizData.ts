@@ -3,6 +3,7 @@ import Papa from 'papaparse'
 import { getAssetUrl } from '../../utils/assets'
 import { QuizAnalytics } from '../../utils/analytics'
 import { QuestionData, QuizConfig, QuizState, QuestionStatus } from './types'
+import { buildKeywordRegex } from '../../utils/keyword'
 
 export function useQuizData(config: QuizConfig) {
   const [state, setState] = useState<QuizState>({
@@ -103,6 +104,18 @@ export function useQuizData(config: QuizConfig) {
 
         // Apply question limit and shuffling
         let finalQuestions = validQuestions
+
+        // Focus Mode: keep only questions whose question text, explanation
+        // (reference) or any answer option mentions the keyword.
+        if (config.keyword && config.keyword.trim()) {
+          const re = buildKeywordRegex(config.keyword)
+          finalQuestions = finalQuestions.filter(q =>
+            re.test(q.question) ||
+            re.test(q.reference || '') ||
+            q.answers.some(a => re.test(a.answer || ''))
+          )
+          // An empty result is not an error — the UI shows a clean "no matches" state.
+        }
         
         if (config.shuffleQuestions) {
           finalQuestions = [...finalQuestions].sort(() => Math.random() - 0.5)
@@ -142,7 +155,7 @@ export function useQuizData(config: QuizConfig) {
     }
 
     loadData()
-  }, [config.examNumber, config.maxQuestions, config.shuffleQuestions, config.shuffleAnswers, config.mode])
+  }, [config.examNumber, config.maxQuestions, config.shuffleQuestions, config.shuffleAnswers, config.mode, config.keyword])
 
   // Track question timing when question changes
   useEffect(() => {
@@ -344,8 +357,9 @@ export function useQuizData(config: QuizConfig) {
         }
       })
 
-      // Track completion
-      const answeredCount = results.filter(r => config.mode === 'practice' ? r.wasAnswered : r.selectedAnswers.length > 0).length
+      // Track completion (focus mode behaves like practice — only answered questions count)
+      const practiceLike = config.mode === 'practice' || config.mode === 'focus'
+      const answeredCount = results.filter(r => practiceLike ? r.wasAnswered : r.selectedAnswers.length > 0).length
       const correctCount = results.filter(r => r.isCorrect).length
       const sessionDuration = Math.round((Date.now() - sessionStartTime.current) / 1000)
       
@@ -359,7 +373,7 @@ export function useQuizData(config: QuizConfig) {
       })
 
       return {
-        results: config.mode === 'practice' ? results.filter(r => r.wasAnswered) : results,
+        results: practiceLike ? results.filter(r => r.wasAnswered) : results,
         summary: {
           totalQuestions: state.questions.length,
           answeredCount,

@@ -7,7 +7,7 @@ interface QuestionGridProps {
   currentQuestionIndex: number
   getQuestionStatus: (index: number) => QuestionStatus
   onQuestionClick: (index: number) => void
-  mode: 'practice' | 'test' | 'individual'
+  mode: 'practice' | 'test' | 'individual' | 'focus'
 }
 
 export function QuestionGrid({ 
@@ -78,7 +78,7 @@ export function QuestionGrid({
 }
 
 interface QuestionStatusLegendProps {
-  mode: 'practice' | 'test' | 'individual'
+  mode: 'practice' | 'test' | 'individual' | 'focus'
 }
 
 export function QuestionStatusLegend({ mode }: QuestionStatusLegendProps) {

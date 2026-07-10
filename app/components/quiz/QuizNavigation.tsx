@@ -13,7 +13,7 @@ interface QuizNavigationProps {
   onCheck: () => void
   onMarkForReview: () => void
   onFinish: () => void
-  mode: 'practice' | 'test' | 'individual'
+  mode: 'practice' | 'test' | 'individual' | 'focus'
 }
 
 export function QuizNavigation({
@@ -60,7 +60,7 @@ export function QuizNavigation({
             onClick={onFinish}
             className="bg-success-600 text-white px-4 sm:px-8 py-3 short:py-2 rounded-lg font-medium hover:bg-success-700 order-3"
           >
-            Finish {mode === 'test' ? 'Test' : mode === 'individual' ? 'Exam' : 'Practice'}
+            Finish {mode === 'test' ? 'Test' : mode === 'individual' ? 'Exam' : mode === 'focus' ? 'Focus' : 'Practice'}
           </button>
         ) : (
           <button
@@ -76,7 +76,7 @@ export function QuizNavigation({
             onClick={onFinish}
             className="bg-success-600 text-white px-4 sm:px-8 py-3 short:py-2 rounded-lg font-medium hover:bg-success-700 order-3"
           >
-            Finish {mode === 'test' ? 'Test' : mode === 'individual' ? 'Exam' : 'Practice'}
+            Finish {mode === 'test' ? 'Test' : mode === 'individual' ? 'Exam' : mode === 'focus' ? 'Focus' : 'Practice'}
           </button>
         ) : (
           <button
