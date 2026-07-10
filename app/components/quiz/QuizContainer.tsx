@@ -121,9 +121,9 @@ export function QuizContainer({ config, onBackToSelection }: QuizContainerProps)
           />
 
           {/* Question Status Grid */}
-          <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+          <div className={`bg-white rounded-lg shadow-sm mb-6 ${config.mode === 'practice' ? 'px-4 py-2.5' : 'p-6'}`}>
             {config.mode === 'practice' ? (
-              /* In practice mode the status grid is collapsible and closed by default */
+              /* In practice mode the status grid is collapsible and closed by default (a compact one-line row) */
               <button
                 type="button"
                 onClick={() => setIsStatusOpen(open => !open)}
