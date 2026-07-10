@@ -30,6 +30,18 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
+/* About flap — floating "what is this page" panel */
+@keyframes aboutflap-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes aboutflap-rise {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.aboutflap-backdrop { animation: aboutflap-fade 0.18s ease-out; }
+.aboutflap-panel { animation: aboutflap-rise 0.26s cubic-bezier(0.16, 1, 0.3, 1); }
+
 /* Custom styles for the test interface */
 .question-grid {
   display: grid;

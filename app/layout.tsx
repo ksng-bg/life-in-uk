@@ -2,6 +2,7 @@ import './globals.css'
 import type { Metadata, Viewport } from 'next'
 import VersionInfo from './components/VersionInfo'
 import AnalyticsWrapper from './components/AnalyticsWrapper'
+import AboutFlap from './components/AboutFlap'
 import './utils/errorSuppression'
 
 export const metadata: Metadata = {
@@ -53,6 +54,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-gray-50">
         <AnalyticsWrapper gaId={GA_MEASUREMENT_ID} />
         {children}
+        <AboutFlap />
         <VersionInfo />
       </body>
     </html>
