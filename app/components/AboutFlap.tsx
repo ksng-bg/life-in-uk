@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { getAssetUrl } from '../utils/assets'
 
 const FEEDBACK_EMAIL = 'ksisbuilding@gmail.com'
 
@@ -59,7 +60,7 @@ function FeatureDemo({
       <h5 className="text-sm font-semibold text-gray-900">{title}</h5>
       <p className="mt-0.5 text-sm leading-relaxed text-gray-600">{children}</p>
       <img
-        src={src}
+        src={getAssetUrl(src)}
         alt={alt}
         loading="lazy"
         className="mt-2 w-full rounded-lg border border-gray-200 shadow-sm"
