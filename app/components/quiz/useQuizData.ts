@@ -373,7 +373,9 @@ export function useQuizData(config: QuizConfig) {
       })
 
       return {
-        results: practiceLike ? results.filter(r => r.wasAnswered) : results,
+        // Keep every question (answered + skipped) and let the results page categorise
+        // them via `wasAnswered` — so skipped questions can be reviewed and exported too.
+        results,
         summary: {
           totalQuestions: state.questions.length,
           answeredCount,

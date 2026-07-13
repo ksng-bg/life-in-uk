@@ -13,6 +13,7 @@ interface TestResult {
   selectedAnswers: number[]
   correctAnswers: number[]
   isCorrect: boolean
+  wasAnswered?: boolean // absent on legacy results → treat as answered
   userAnswerTexts: string[]
   correctAnswerTexts: string[]
 }
@@ -85,27 +86,43 @@ export default function ResultsPage() {
     }
   }
 
-  const correctCount = results.filter(r => r.isCorrect).length
-  const incorrectCount = results.length - correctCount
-  const percentage = results.length > 0 ? Math.round((correctCount / results.length) * 100) : 0
-  const passed = percentage >= 75
-  const incorrectResults = results.filter(r => !r.isCorrect)
+  // Practice/focus are "do a subset" modes: the score is based only on questions you
+  // actually answered, and skipped questions are reviewed in their own section.
+  // Test/individual are exam-style: unanswered questions count as incorrect.
+  const practiceLike = mode === 'practice' || mode === 'focus'
+  const answeredResults = results.filter(r => r.wasAnswered !== false)
+  const skippedResults = practiceLike ? results.filter(r => r.wasAnswered === false) : []
 
-  const exportIncorrectAnswers = () => {
+  const scoredResults = practiceLike ? answeredResults : results
+  const correctCount = scoredResults.filter(r => r.isCorrect).length
+  const incorrectResults = scoredResults.filter(r => !r.isCorrect)
+  const incorrectCount = incorrectResults.length
+  const skippedCount = skippedResults.length
+  const percentage = scoredResults.length > 0 ? Math.round((correctCount / scoredResults.length) * 100) : 0
+  const passed = percentage >= 75
+
+  const exportForReview = () => {
+    const rows = [
+      ...incorrectResults.map(r => ({ r, status: 'Wrong' })),
+      ...skippedResults.map(r => ({ r, status: 'Skipped' })),
+    ]
+
     const csvHeaders = [
       'Question Number',
+      'Result',
       'Question',
       'Your Answer(s)',
       'Correct Answer(s)',
       'Explanation'
     ]
 
-    const csvRows = incorrectResults.map(result => [
-      `Question ${result.questionIndex + 1}`,
-      `"${result.question.replace(/"/g, '""')}"`,
-      `"${result.userAnswerTexts.join('; ').replace(/"/g, '""')}"`,
-      `"${result.correctAnswerTexts.join('; ').replace(/"/g, '""')}"`,
-      `"${result.reference.replace(/"/g, '""')}"`
+    const csvRows = rows.map(({ r, status }) => [
+      `Question ${r.questionIndex + 1}`,
+      status,
+      `"${r.question.replace(/"/g, '""')}"`,
+      `"${(r.userAnswerTexts.join('; ') || '(not answered)').replace(/"/g, '""')}"`,
+      `"${r.correctAnswerTexts.join('; ').replace(/"/g, '""')}"`,
+      `"${(r.reference || '').replace(/"/g, '""')}"`
     ])
 
     const csvContent = [csvHeaders, ...csvRows]
@@ -114,11 +131,11 @@ export default function ResultsPage() {
 
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
     const link = document.createElement('a')
-    
+
     if (link.download !== undefined) {
       const url = URL.createObjectURL(blob)
       link.setAttribute('href', url)
-      link.setAttribute('download', `life-in-uk-incorrect-answers-${new Date().toISOString().split('T')[0]}.csv`)
+      link.setAttribute('download', `life-in-uk-review-${new Date().toISOString().split('T')[0]}.csv`)
       link.style.visibility = 'hidden'
       document.body.appendChild(link)
       link.click()
@@ -176,12 +193,21 @@ export default function ResultsPage() {
               <div className="text-gray-600">Incorrect Answers</div>
             </div>
             
-            <div className="bg-white rounded-lg shadow-md p-6 text-center">
-              <div className="text-3xl font-bold text-primary-600 mb-2">
-                {results.length}
+            {practiceLike ? (
+              <div className="bg-white rounded-lg shadow-md p-6 text-center">
+                <div className="text-3xl font-bold text-warning-600 mb-2">
+                  {skippedCount}
+                </div>
+                <div className="text-gray-600">Skipped</div>
               </div>
-              <div className="text-gray-600">Total Questions</div>
-            </div>
+            ) : (
+              <div className="bg-white rounded-lg shadow-md p-6 text-center">
+                <div className="text-3xl font-bold text-primary-600 mb-2">
+                  {results.length}
+                </div>
+                <div className="text-gray-600">Total Questions</div>
+              </div>
+            )}
           </div>
 
           {/* Export and Actions */}
@@ -190,15 +216,19 @@ export default function ResultsPage() {
               Actions
             </h2>
             <div className="flex flex-wrap gap-4">
-              {incorrectCount > 0 && (
+              {(incorrectCount > 0 || skippedCount > 0) && (
                 <button
-                  onClick={exportIncorrectAnswers}
+                  onClick={exportForReview}
                   className="bg-warning-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-warning-700 transition-colors flex items-center gap-2"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
-                  Export Incorrect Answers (CSV)
+                  {incorrectCount > 0 && skippedCount > 0
+                    ? 'Export Wrong + Skipped (CSV)'
+                    : skippedCount > 0
+                    ? 'Export Skipped (CSV)'
+                    : 'Export Incorrect Answers (CSV)'}
                 </button>
               )}
               
@@ -220,28 +250,28 @@ export default function ResultsPage() {
 
           {/* Incorrect Answers Details */}
           {incorrectCount > 0 && (
-            <div className="bg-white rounded-lg shadow-md p-6">
+            <div className="bg-white rounded-lg shadow-md p-6 mb-8">
               <h2 className="text-2xl font-semibold text-gray-900 mb-6">
                 Questions You Got Wrong ({incorrectCount})
               </h2>
-              
+
               <div className="space-y-6">
                 {incorrectResults.map((result, index) => (
                   <div key={index} className="border-l-4 border-danger-500 pl-4 py-2">
                     <div className="font-medium text-gray-900 mb-2">
                       Question {result.questionIndex + 1}: {result.question}
                     </div>
-                    
+
                     <div className="mb-2">
                       <span className="text-danger-600 font-medium">Your answer: </span>
                       <span className="text-danger-700">{result.userAnswerTexts.join(', ')}</span>
                     </div>
-                    
+
                     <div className="mb-2">
                       <span className="text-success-600 font-medium">Correct answer: </span>
                       <span className="text-success-700">{result.correctAnswerTexts.join(', ')}</span>
                     </div>
-                    
+
                     {result.reference && (
                       <div className="text-sm text-gray-600 bg-gray-50 p-3 rounded">
                         <strong>Explanation:</strong> {result.reference}
@@ -253,8 +283,41 @@ export default function ResultsPage() {
             </div>
           )}
 
-          {/* Perfect Score Message */}
-          {incorrectCount === 0 && (
+          {/* Skipped / Not Answered (practice & focus only) */}
+          {skippedCount > 0 && (
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <h2 className="text-2xl font-semibold text-gray-900 mb-1">
+                Skipped / Not Answered ({skippedCount})
+              </h2>
+              <p className="text-sm text-gray-500 mb-6">
+                Questions you didn&rsquo;t answer this round — here are the correct answers so you can review them.
+              </p>
+
+              <div className="space-y-6">
+                {skippedResults.map((result, index) => (
+                  <div key={index} className="border-l-4 border-warning-500 pl-4 py-2">
+                    <div className="font-medium text-gray-900 mb-2">
+                      Question {result.questionIndex + 1}: {result.question}
+                    </div>
+
+                    <div className="mb-2">
+                      <span className="text-success-600 font-medium">Correct answer: </span>
+                      <span className="text-success-700">{result.correctAnswerTexts.join(', ')}</span>
+                    </div>
+
+                    {result.reference && (
+                      <div className="text-sm text-gray-600 bg-gray-50 p-3 rounded">
+                        <strong>Explanation:</strong> {result.reference}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Perfect Score Message — only when everything answered was correct AND nothing skipped */}
+          {incorrectCount === 0 && skippedCount === 0 && scoredResults.length > 0 && (
             <div className="bg-success-50 border border-success-200 rounded-lg p-6 text-center">
               <div className="text-success-700 text-xl font-medium mb-2">
                 🌟 Perfect Score! 🌟
