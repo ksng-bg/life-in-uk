@@ -1,0 +1,94 @@
+====================================================================
+ Life in the UK Test — Launch / Intro Social Posts
+ Site: https://ksng-bg.github.io/life-in-uk/
+ Forked & improved from: domicch/life-in-uk
+ (437 questions across 20 exam sets · free · no ads · no sign-up)
+====================================================================
+
+
+--------------------------------------------------------------------
+ 廣東話 — 完整版 (Facebook groups / longer posts)
+--------------------------------------------------------------------
+
+考緊 Life in the UK Test?
+
+好多人都 share 呢個開源練習網 (domicch/life-in-uk)——400 幾題 practice questions、有解釋,做完就可以去考試。完全免費、零廣告、唔使登記,仲有 24 題模擬試同逐份試卷分開練,其實已經好正。
+
+不過我自己用嚟溫溫下,就覺得有啲使用體驗可以再進一步。於是就喺佢個底上面改良,加返幾個我自己都想要嘅功能,操起上嚟順手好多 🙌
+
+我加咗嘅嘢 👇
+⚡ 題目狀態列預設收埋,答完直接撳 Next,唔使好似以前咁碌上碌落幾百次,慳返好多時間
+🎯 Focus Mode:打一個字或者一個年份(例如「Parliament」、「1918」),即刻抽晒所有相關題目嚟操,重點字仲會標黃——想集中溫某個 topic 超方便
+📱 電腦、手機都啱睇,細 screen 自動排靚啲
+
+原本個網已經好好用,我只係喺上面根據自己嘅使用感受再優化下。黎緊要考嘅朋友不妨試下 🙏
+
+🔗 https://ksng-bg.github.io/life-in-uk/
+
+#LifeintheUKTest #移民英國 #BNO #永居 #入籍 #英國生活
+
+
+--------------------------------------------------------------------
+ 廣東話 — 短版 (Threads / IG / X)
+--------------------------------------------------------------------
+
+考緊 Life in the UK Test?🇬🇧
+
+有個好多人 share 嘅開源練習網 (domicch/life-in-uk),400 幾題、免費、零廣告。我 fork 咗嚟優化下使用體驗:
+⚡ 狀態列收埋,答完直接 Next,唔使碌嚟碌去
+🎯 Focus Mode:打個字/年份就抽晒相關題目嚟操,重點仲會標黃
+📱 手機電腦都啱睇
+
+黎緊要考嘅朋友試下 👇
+🔗 https://ksng-bg.github.io/life-in-uk/
+
+#LifeintheUKTest #BNO #移民英國
+
+
+--------------------------------------------------------------------
+ English — full version (Facebook groups / longer posts)
+--------------------------------------------------------------------
+
+Studying for the Life in the UK Test? Sharing a genuinely good free practice site 📚
+
+It's built on a really well-made open-source project, domicch/life-in-uk — free, no ads, no sign-up, with 400+ questions (with explanations), full 24-question mock exams, and individual test sets. The original author did the hard work of building it; I forked it and added a few features I wanted myself, to make revising faster and smoother 🙌
+
+What I added on top 👇
+⚡ Collapsible question tracker — tucked away by default, so you just answer and hit Next. No more scrolling up and down hundreds of times.
+🎯 Focus Mode — type a single word or year (e.g. "Parliament" or "1918") and it instantly builds a mini-drill from every question that mentions it, with the keyword highlighted. Brilliant for nailing one topic.
+📱 Better on phones & small screens — the layout now adapts to whatever you're on.
+
+The original was already great — I just built on top of it. Big thanks to the original author 🙏
+
+🔗 https://ksng-bg.github.io/life-in-uk/
+
+100% free. If it helps, please share it with anyone else revising 🙏
+(And if you'd like to say thanks, you can buy me a coffee ☕ — totally optional, the site stays free either way.)
+
+#LifeintheUKTest #UKcitizenship #ILR #BNO #settlement
+
+
+--------------------------------------------------------------------
+ English — short version (Threads / IG / X)
+--------------------------------------------------------------------
+
+Studying for the Life in the UK Test? 🇬🇧
+
+There's a great open-source practice site (domicch/life-in-uk) — 400+ questions, free, no ads. I forked it and polished the experience:
+⚡ Question tracker tucked away — just answer & hit Next, no endless scrolling
+🎯 Focus Mode: type a word or year → instant drill on that topic, keyword highlighted
+📱 Works great on phone & laptop
+
+Give it a go 👇
+🔗 https://ksng-bg.github.io/life-in-uk/
+
+#LifeintheUKTest #BNO #UKcitizenship
+
+
+--------------------------------------------------------------------
+ Suggested GIF attachments (in public/demos/)
+--------------------------------------------------------------------
+- collapsible-status.gif  -> pair with the ⚡ point
+- focus-mode.gif          -> pair with the 🎯 point (best single hook for short posts)
+- responsive.gif          -> pair with the 📱 point
+Long posts: attach all three. Short posts: focus-mode.gif alone works best.
